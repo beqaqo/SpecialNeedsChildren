@@ -1,13 +1,14 @@
 from flask import Flask
-from src.ext import db, migrate, login_manager, admin
+from src.ext import db, migrate, login_manager, admin, api
 from src.config import Config
-from src.commands import init_db_command, populate_db_command
+from src.commands import init_db, populate_db
 from src.models import Word, Round, Letter, User # noqa
 from src.admin_views.base import SecureModelView, SecureIndexView
-from src.views import auth_blueprint, api_blueprint
+from src.views.auth import auth_blueprint
+from endpoints import ns_rounds, ns_words
 
-COMMANDS = [init_db_command, populate_db_command]
-BLUEPRINTS = [auth_blueprint, api_blueprint]
+COMMANDS = [init_db, populate_db]
+BLUEPRINTS = [auth_blueprint]
 
 def register_extensions(app):
     db.init_app(app)
@@ -21,6 +22,13 @@ def register_extensions(app):
 
     admin.__init__(app, name="SpecialNeeds Panel", index_view=SecureIndexView())
     admin.add_view(SecureModelView(User, db.session))
+    admin.add_view(SecureModelView(Word, db.session))
+    admin.add_view(SecureModelView(Round, db.session))
+    admin.add_view(SecureModelView(Letter, db.session))
+
+    api.init_app(app)
+    api.add_namespace(ns_rounds)
+    api.add_namespace(ns_words)
 
 def register_blueprints(app):
     for blueprint in BLUEPRINTS:
