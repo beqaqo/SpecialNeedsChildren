@@ -5,6 +5,7 @@ class Round(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     position = db.Column(db.Integer, nullable=False)
+    image = db.Column(db.String(64), nullable=True)
     next_word_id = db.Column(db.Integer, db.ForeignKey("words.id", use_alter=True, name="fk_round_next_word"), nullable=True)
 
     words = db.relationship("Word", back_populates="round", foreign_keys="Word.round_id")
