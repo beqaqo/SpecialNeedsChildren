@@ -41,10 +41,10 @@ def populate_db():
 
     # Words
     words = [
-        Word(word="მაგიდა", round_id=round1.id),
-        Word(word="სკამი", round_id=round1.id),
-        Word(word="კატა", round_id=round2.id),
-        Word(word="ძაღლი", round_id=round2.id),
+        Word(word="მაგიდა", position=1, round_id=round1.id),
+        Word(word="სკამი", position=2, round_id=round1.id),
+        Word(word="კატა", position=1, round_id=round2.id),
+        Word(word="ძაღლი", position=2, round_id=round2.id),
     ]
     db.session.add_all(words)
     db.session.commit()

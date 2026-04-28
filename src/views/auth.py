@@ -13,7 +13,7 @@ def login():
         if user and user.check_password(password):
             login_user(user)
             return redirect("/admin")
-        flash("İstifadəçi adı və ya şifrə yanlışdır")
+        flash("User or password is incorrect")
     return render_template("auth/login.html")
 
 @auth_blueprint.route("/logout")
