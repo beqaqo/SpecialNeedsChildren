@@ -24,7 +24,7 @@ def register_extensions(app):
     def load_user(id):
         return User.query.get(id)
 
-    admin.__init__(app, name="SpecialNeeds Panel", index_view=SecureIndexView())
+    admin.init_app(app, name="SpecialNeeds Panel", index_view=SecureIndexView())
     admin.add_view(SecureModelView(User, db.session))
     admin.add_view(WordView(Word, db.session))
     admin.add_view(RoundView(Round, db.session))
