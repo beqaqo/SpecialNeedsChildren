@@ -41,7 +41,6 @@ def register_extensions(app):
     api.add_namespace(ns_rounds)
     api.add_namespace(ns_words)
 
-
 def register_blueprints(app):
     for blueprint in BLUEPRINTS:
         app.register_blueprint(blueprint)
