@@ -1,5 +1,5 @@
 from flask import Flask
-from src.ext import db, migrate, login_manager, admin, api
+from src.ext import db, migrate, login_manager, admin, api, cors
 from src.config import Config
 from src.commands import init_db, populate_db
 from src.models import Word, Round, Letter, User
@@ -15,6 +15,7 @@ BLUEPRINTS = [auth_blueprint]
 
 def create_app():
     app = Flask(__name__)
+    cors.init_app(app)
     app.config.from_object(Config)
     register_extensions(app)
     register_blueprints(app)
