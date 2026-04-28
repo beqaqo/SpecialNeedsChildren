@@ -18,10 +18,7 @@ words_model = api.model("Words", {
 
 round_with_words_model = api.model("WordWithLetters", {
     "id": fields.Integer,
-    "word": fields.String,
     "image": fields.String,
-    "sound": fields.String,
-    "round_id": fields.Integer,
     "words": fields.List(fields.Nested(words_model))
 })
 
