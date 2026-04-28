@@ -14,37 +14,12 @@ COMMANDS = [init_db, populate_db]
 BLUEPRINTS = [auth_blueprint]
 
 def create_app():
-    # app = Flask(__name__)
-    # app.config.from_object(Config)
-    try:
-        print("Creating app...")
-
-        app = Flask(__name__)
-        app.config.from_object(Config)
-
-        print("Config loaded")
-
-        register_extensions(app)
-        print("Extensions registered")
-
-        register_blueprints(app)
-        print("Blueprints registered")
-
-        register_commands(app)
-        print("Commands registered")
-
-        return app
-
-    except Exception as e:
-        print("🔥 APP CRASHED:", e)
-        import traceback
-        traceback.print_exc()
-        raise
-
-    #register_extensions(app)
-    #register_blueprints(app)
-    #register_commands(app)
-    #return app
+    app = Flask(__name__)
+    app.config.from_object(Config)
+    register_extensions(app)
+    register_blueprints(app)
+    register_commands(app)
+    return app
 
 def register_extensions(app):
     db.init_app(app)
@@ -56,7 +31,7 @@ def register_extensions(app):
     def load_user(id):
         return User.query.get(id)
 
-    admin.init_app(app, name="SpecialNeeds Panel", index_view=SecureIndexView())
+    admin.init_app(app, index_view=SecureIndexView())
     admin.add_view(SecureModelView(User, db.session))
     admin.add_view(WordView(Word, db.session))
     admin.add_view(RoundView(Round, db.session))
