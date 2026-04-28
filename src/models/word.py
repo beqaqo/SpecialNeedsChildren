@@ -11,3 +11,6 @@ class Word(db.Model):
     round_id = db.Column(db.Integer, db.ForeignKey("rounds.id"), nullable=True)
 
     round = db.relationship("Round", back_populates="words", foreign_keys=[round_id])
+
+    def __repr__(self):
+        return self.word
